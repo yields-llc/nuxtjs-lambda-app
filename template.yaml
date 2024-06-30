@@ -1,0 +1,49 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  nuxtjs-lambda
+  SAM Template for Nuxt.js on AWS
+
+Parameters:
+  StackFamily:
+    Type: String
+    Default: nuxtjs-lambda-app
+
+Globals:
+  Function:
+    Timeout: 3
+    Tracing: Active
+
+Resources:
+  NuxtFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: .output/server
+      Handler: index.handler
+      Runtime: nodejs20.x
+      MemorySize: 512
+      Timeout: 30
+      Architectures:
+        - x86_64
+#      Environment:
+#        Variables:
+#          AWS_LWA_INVOKE_MODE: response_stream
+#          DEBUG: "*"
+      FunctionUrlConfig:
+        AuthType: NONE
+#        InvokeMode: RESPONSE_STREAM
+#    Metadata:
+#      DockerTag: v1
+#      DockerContext: .
+#      Dockerfile: Dockerfile
+
+Outputs:
+  NuxtFunction:
+    Value: !GetAtt NuxtFunction.Arn
+    Export:
+      Name: !Sub "${StackFamily}-nuxt-function-arn"
+
+  NuxtFunctionUrl:
+    Value: !GetAtt NuxtFunctionUrl.FunctionUrl
+    Export:
+      Name: !Sub "${StackFamily}-nuxt-function-url"
