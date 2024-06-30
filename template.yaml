@@ -25,17 +25,8 @@ Resources:
       Timeout: 30
       Architectures:
         - x86_64
-#      Environment:
-#        Variables:
-#          AWS_LWA_INVOKE_MODE: response_stream
-#          DEBUG: "*"
       FunctionUrlConfig:
         AuthType: NONE
-#        InvokeMode: RESPONSE_STREAM
-#    Metadata:
-#      DockerTag: v1
-#      DockerContext: .
-#      Dockerfile: Dockerfile
 
 Outputs:
   NuxtFunction:
